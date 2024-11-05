@@ -384,10 +384,10 @@ to be homogenous."
           (concat "&[" (string-join (mapcar #'rustic-babel-variable-to-rust var) ",") "]")
         (concat "&["
                 (string-join
-                 (mapcar (lambda (v) (format "\"%s\"" v)) var)
+                 (mapcar (lambda (v) (prin1-to-string v)) var)
                  ", ")
                 "]"))
-    (concat "\"" var "\"")))
+    (prin1-to-string var)))
 
 (defun rustic-babel-variable-assignments:rust (vars)
   "Convert the passed org-src block VARS into a matching const type.

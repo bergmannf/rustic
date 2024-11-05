@@ -295,4 +295,12 @@
       (rustic-test-babel-execute-block buf)
       (should (string-equal (rustic-test-babel-check-results buf) "[[\"A\", \"B\"], [\"C\", \"D\"]]\n")))))
 
+(ert-deftest rustic-test-babel-block-with-json-string-arg ()
+  (let* ((string "println!(\"{:}\", A)")
+         (params (concat ":main yes :var A=" (prin1-to-string (json-serialize '(:A "B")))))
+         (buf (rustic-test-get-babel-block string params)))
+    (with-current-buffer buf
+      (rustic-test-babel-execute-block buf)
+      (should (string-equal (rustic-test-babel-check-results buf) "{\"A\":\"B\"}\n")))))
+
 (provide 'rustic-babel-test)
